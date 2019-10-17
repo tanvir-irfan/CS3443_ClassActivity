@@ -197,6 +197,10 @@ public class BigInteger implements Comparable<BigInteger> {
 		return a - b;
 	}
 
+	public void show () {
+		System.out.println(this.toString());
+	}
+	
 	//////////////////////////////////////////////////////////////////
 	/**
 	 * Simple reverse of an array!
