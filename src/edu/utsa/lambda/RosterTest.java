@@ -39,9 +39,18 @@ import java.util.function.Predicate;
 
 
 public class RosterTest {
-
+	
+	// Approach 0: Create Methods that Search for Persons with age >= 18.
+    public static void printPersonsOlderThan(List<Person> roster) {
+        for (Person p : roster) {
+            if (p.getAge() >= 18) {
+                p.printPerson();
+            }
+        }
+    }
+	
     // Approach 1: Create Methods that Search for Persons that Match One
-    // Characteristic
+    // Characteristic, e.g., certain 'age'
     public static void printPersonsOlderThan(List<Person> roster, int age) {
         for (Person p : roster) {
             if (p.getAge() >= age) {
@@ -69,13 +78,13 @@ public class RosterTest {
     // Approach 5: Specify Search Criteria Code with a Lambda Expression
     
     public static void printPersons(
-            List<Person> roster, CheckPerson tester) {
-            for (Person p : roster) {
-                if (tester.test(p)) {
-                    p.printPerson();
-                }
+        List<Person> roster, CheckPerson tester) {
+        for (Person p : roster) {
+            if (tester.test(p)) {
+                p.printPerson();
             }
         }
+    }
     
     // Approach 6: Use Standard Functional Interfaces with Lambda Expressions
 
@@ -89,7 +98,6 @@ public class RosterTest {
     }
 
     // Approach 7: Use Lambda Expressions Throughout Your Application
-
     public static void processPersons(
         List<Person> roster,
         Predicate<Person> tester,
@@ -102,7 +110,6 @@ public class RosterTest {
     }
 
     // Approach 7, second example
-
     public static void processPersonsWithFunction(
         List<Person> roster,
         Predicate<Person> tester,
@@ -117,7 +124,6 @@ public class RosterTest {
     }
     
     // Approach 8: Use Generics More Extensively
-
     public static <X, Y> void processElements(
         Iterable<X> source,
         Predicate<X> tester,
@@ -154,7 +160,6 @@ public class RosterTest {
         System.out.println();
 
         // Approach 3: Specify Search Criteria Code in a Local Class
-
         System.out.println("Persons who are eligible for Selective Service:");
 
         class CheckPersonEligibleForSelectiveService implements CheckPerson {
@@ -167,8 +172,6 @@ public class RosterTest {
 
         printPersons(
             roster, new CheckPersonEligibleForSelectiveService());
-
-
         System.out.println();
 
         // Approach 4: Specify Search Criteria Code in an Anonymous Class
@@ -186,23 +189,29 @@ public class RosterTest {
                 }
             }
         );
-
         System.out.println();
 
         // Approach 5: Specify Search Criteria Code with a Lambda Expression
-
         System.out.println("Persons who are eligible for Selective Service " +
             "(lambda expression):");
 
+        printPersons(
+            roster,
+            (Person p) -> {return p.getGender() == Person.Sex.MALE
+                && p.getAge() >= 18
+                && p.getAge() <= 25;}
+        );
+        System.out.println();
+
+        
         printPersons(
             roster,
             (Person p) -> p.getGender() == Person.Sex.MALE
                 && p.getAge() >= 18
                 && p.getAge() <= 25
         );
-
-        System.out.println();
-
+        
+        
         // Approach 6: Use Standard Functional Interfaces with Lambda
         // Expressions
 
@@ -250,7 +259,6 @@ public class RosterTest {
         System.out.println();
 
         // Approach 8: Use Generics More Extensively
-
         System.out.println("Persons who are eligible for Selective Service " +
             "(generic version):");
 
